@@ -1,0 +1,9 @@
+Act as a senior frontend engineer and UI/UX designer specializing in Next.js and React. Create a Next.js (latest version) website for Upright Solutions and Systems Consultancy Corp. using modern best-practice architecture. Use the App Router and organize pages under app/ with separate folders (e.g., about, services). Store all company information in structured .ts config files (reference: @company-info.txt). Place all images and videos inside the public/ directory.
+
+Inside the components/ directory, set up folders for ui, layout, sections, forms, blog, shared, and providers.
+Use Sora and Outfit from Google Fonts, and apply the brand color palette: #F2D04E, #e4dfd8, #24221B, #0000a1.
+
+Design and develop the homepage first, taking inspiration from the clean, premium, futuristic experience of daylightcomputer.com. Ensure the design looks professionally crafted — not AI-generated — and reflects the skill level of a senior frontend developer with strong UI/UX capability.
+
+Also create a fully detailed PRD in Markdown, a professional README, and update the PRD every time new features are added.
+Write production-ready code, reusable components, and explain architecture decisions clearly.
