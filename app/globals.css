@@ -88,6 +88,8 @@
   
   body {
     @apply bg-background text-foreground;
+    overflow-x: clip;
+    max-width: 100vw;
   }
 }
 
@@ -227,22 +229,4 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-}
-
-/* Smooth scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #24221b;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #f2d04e;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #d4b844;
 }

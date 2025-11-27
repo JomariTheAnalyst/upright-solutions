@@ -56,7 +56,17 @@ Thumbs.db
 logs
 *.log
 
-# Optional: Large media files (uncomment if needed)
-# *.mp4
-# *.mov
-# *.avi
+# Large media files - Keep videos and large images out of repo
+# Uncomment these if you want to exclude large media files:
+# /public/videos/**/*.mp4
+# /public/videos/**/*.mov
+# /public/videos/**/*.avi
+# /public/images/upright-imagesec/*.png
+
+# Personal notes and documentation
+company-info.txt
+ceo-info
+prompt.txt
+
+# Kiro IDE
+.kiro/

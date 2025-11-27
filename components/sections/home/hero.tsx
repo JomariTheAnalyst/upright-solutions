@@ -6,17 +6,14 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Play, X } from "lucide-react";
 
-// Register GSAP plugins
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-// Configuration
 const FRAME_COUNT = 101;
-const INITIAL_LOAD_COUNT = 20; // Frames to load immediately
+const INITIAL_LOAD_COUNT = 20;
 const FRAME_PATH = "/images/upright-imagesec/ezgif-frame-";
 
-// Generate frame paths
 const getFramePath = (index: number): string => {
   const frameNumber = String(index).padStart(3, "0");
   return `${FRAME_PATH}${frameNumber}.png`;
@@ -32,8 +29,22 @@ export function Hero() {
   const [isReady, setIsReady] = useState(false);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) return;
+
     const canvas = canvasRef.current;
     const container = containerRef.current;
     if (!canvas || !container) return;
@@ -41,7 +52,6 @@ export function Hero() {
     const ctx = canvas.getContext("2d", { alpha: false });
     if (!ctx) return;
 
-    // Set canvas size for high DPI displays
     const setCanvasSize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       const rect = container.getBoundingClientRect();
@@ -54,14 +64,12 @@ export function Hero() {
 
     setCanvasSize();
 
-    // Initial render with a slight delay to ensure DOM is ready
     setTimeout(() => {
       if (imagesRef.current[1]) {
         renderFrame(1);
       }
     }, 100);
 
-    // Render frame to canvas with cover behavior
     const renderFrame = (frameIndex: number) => {
       const img = imagesRef.current[frameIndex];
       if (!img || !img.complete || !img.naturalWidth) return;
@@ -69,7 +77,6 @@ export function Hero() {
       const rect = container.getBoundingClientRect();
       ctx.clearRect(0, 0, rect.width, rect.height);
 
-      // Calculate cover dimensions
       const imgRatio = img.naturalWidth / img.naturalHeight;
       const canvasRatio = rect.width / rect.height;
 
@@ -90,18 +97,15 @@ export function Hero() {
       ctx.drawImage(img, drawX, drawY, drawWidth, drawHeight);
     };
 
-    // Preload images with priority strategy
     const preloadImages = async () => {
       const images: HTMLImageElement[] = new Array(FRAME_COUNT + 1);
       imagesRef.current = images;
 
-      // Load first batch immediately (high priority)
       const loadImage = (index: number): Promise<void> => {
         return new Promise((resolve) => {
           const img = new window.Image();
           img.onload = () => {
             images[index] = img;
-            // Render first frame immediately
             if (index === 1 && !isReady) {
               renderFrame(1);
               setIsReady(true);
@@ -113,23 +117,19 @@ export function Hero() {
         });
       };
 
-      // Load initial frames for instant playback
       const initialPromises: Promise<void>[] = [];
       for (let i = 1; i <= INITIAL_LOAD_COUNT; i++) {
         initialPromises.push(loadImage(i));
       }
       await Promise.all(initialPromises);
 
-      // Load remaining frames in background (low priority)
       const loadRemainingFrames = async () => {
         for (let i = INITIAL_LOAD_COUNT + 1; i <= FRAME_COUNT; i++) {
           await loadImage(i);
-          // Small delay to prevent blocking main thread
           await new Promise((r) => setTimeout(r, 10));
         }
       };
 
-      // Use requestIdleCallback if available, otherwise setTimeout
       if ("requestIdleCallback" in window) {
         window.requestIdleCallback(() => loadRemainingFrames());
       } else {
@@ -139,7 +139,6 @@ export function Hero() {
 
     preloadImages();
 
-    // Handle resize
     const handleResize = () => {
       setCanvasSize();
       renderFrame(frameIndexRef.current.value);
@@ -147,22 +146,20 @@ export function Hero() {
 
     window.addEventListener("resize", handleResize);
 
-    // Setup GSAP ScrollTrigger
     const setupScrollTrigger = () => {
-      // Kill any existing ScrollTriggers on this container first
       ScrollTrigger.getAll().forEach((trigger) => {
         if (trigger.vars.trigger === container) {
           trigger.kill(true);
         }
       });
 
-      const tl = gsap.timeline({
+      gsap.timeline({
         scrollTrigger: {
           trigger: container,
           start: "top top",
-          end: "+=300%", // 3x viewport height for smooth scrubbing
+          end: "+=150%",
           pin: true,
-          scrub: 0.5, // Smooth scrubbing
+          scrub: 0.5,
           anticipatePin: 1,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
@@ -179,11 +176,8 @@ export function Hero() {
           },
         },
       });
-
-      return tl;
     };
 
-    // Wait for initial frames before setting up scroll
     const checkReady = setInterval(() => {
       if (imagesRef.current[1]?.complete) {
         clearInterval(checkReady);
@@ -194,16 +188,29 @@ export function Hero() {
     return () => {
       window.removeEventListener("resize", handleResize);
       clearInterval(checkReady);
-
-      // Clean up ScrollTrigger instances properly
-      const triggers = ScrollTrigger.getAll();
-      triggers.forEach((trigger) => {
+      ScrollTrigger.getAll().forEach((trigger) => {
         if (trigger.vars.trigger === container) {
           trigger.kill(true);
         }
       });
     };
   }, [isReady]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isVideoPlaying) {
+        handleCloseVideo();
+      }
+    };
+
+    if (isVideoPlaying) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isVideoPlaying]);
 
   const handleVideoClick = () => {
     setIsVideoPlaying(true);
@@ -235,63 +242,52 @@ export function Hero() {
     }
   };
 
-  // Handle ESC key to close video
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isVideoPlaying) {
-        handleCloseVideo();
-      }
-    };
-
-    if (isVideoPlaying) {
-      window.addEventListener("keydown", handleKeyDown);
-    }
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isVideoPlaying]);
-
   return (
     <section
       ref={containerRef}
       data-hero-section
-      className="relative h-screen w-full overflow-hidden bg-brand-dark"
+      className="relative h-screen overflow-hidden bg-[#fafafa] p-2 sm:p-4 lg:p-4"
     >
-      {/* Canvas for image sequence */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 z-0 h-full w-full object-cover"
-        style={{ display: "block" }}
-      />
+      <div className="relative h-full w-full overflow-hidden rounded-3xl bg-brand-dark">
+        {isMobile ? (
+          <Image
+            src="/images/home/bg-mobile.png"
+            alt="Upright Solutions"
+            fill
+            className="absolute inset-0 z-0 h-full w-full rounded-3xl object-cover"
+            priority
+            quality={90}
+          />
+        ) : (
+          <canvas
+            ref={canvasRef}
+            className="absolute inset-0 z-0 h-full w-full rounded-3xl object-cover"
+            style={{ display: "block" }}
+          />
+        )}
 
-      {/* Content Overlay */}
-      <div className="absolute inset-0 z-10">
-        <div className="mx-auto h-full max-w-7xl px-6 lg:px-8">
-          <div className="relative flex h-full flex-col justify-between py-24">
-            {/* Main Headline - Top */}
-            <div className="max-w-xl pt-8">
-              <h1 className="mb-6 font-heading text-5xl font-bold leading-[1.1] tracking-tight text-white sm:text-6xl lg:text-7xl">
-                <span className="italic">The future,</span>
-                <br />
-                <span className="text-brand-yellow">integrated</span>
+        <div className="absolute inset-0 z-10 p-4 pt-20 pl-8 lg:p-12 lg:pt-30 lg:pl-40">
+          <div className="flex h-full flex-col justify-between">
+            <div className="max-w-xl">
+              <h1 className="mb-4 font-heading text-4xl font-bold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl whitespace-nowrap">
+                <span className="italic">The future, </span>
+                <span className="italic text-brand-yellow">integrated</span>
               </h1>
-              <p className="max-w-md font-body text-lg text-white leading-relaxed">
+              <p className="max-w-md font-body text-base text-white leading-relaxed lg:text-lg">
                 Meet Upright Solutions. A new kind of IT partner, designed for
                 operational excellence and growth.
               </p>
             </div>
 
-            {/* Video Thumbnail Card - Bottom Right */}
-            <div className="absolute bottom-8 right-[-2rem] sm:right-[-1rem] lg:right-0">
+            {/* Video Thumbnail Card - Bottom Left */}
+            <div className="flex justify-start">
               <div
                 onClick={handleVideoClick}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
-                className="group relative w-56 cursor-pointer overflow-hidden rounded-xl border-2 border-brand-yellow/50 bg-black/30 backdrop-blur-sm transition-all hover:border-brand-yellow hover:shadow-xl hover:shadow-brand-yellow/30 sm:w-64 lg:w-72"
+                className="group relative w-48 cursor-pointer overflow-hidden rounded-xl border-2 border-brand-yellow/50 bg-black/30 backdrop-blur-sm transition-all hover:border-brand-yellow hover:shadow-xl hover:shadow-brand-yellow/30 sm:w-56 lg:w-64"
               >
                 <div className="relative aspect-video">
-                  {/* Thumbnail Image */}
                   {!isHovering && (
                     <Image
                       src="/images/home/Screenshot 2025-11-26 123037.png"
@@ -301,7 +297,6 @@ export function Hero() {
                     />
                   )}
 
-                  {/* Thumbnail Video (plays on hover) */}
                   <video
                     ref={thumbnailVideoRef}
                     className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ${
@@ -317,11 +312,10 @@ export function Hero() {
                     />
                   </video>
 
-                  {/* Play Button - only show when not hovering */}
                   {!isHovering && (
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand-yellow text-brand-dark transition-transform group-hover:scale-110 shadow-lg">
-                        <Play className="h-7 w-7 fill-current ml-1" />
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-yellow text-brand-dark transition-transform group-hover:scale-110 shadow-lg sm:h-14 sm:w-14">
+                        <Play className="h-5 w-5 fill-current ml-0.5 sm:h-6 sm:w-6" />
                       </div>
                     </div>
                   )}
@@ -330,9 +324,11 @@ export function Hero() {
             </div>
           </div>
         </div>
+
+        <div className="pointer-events-none absolute inset-0 z-[5] rounded-3xl bg-gradient-to-r from-brand-dark/70 via-transparent to-transparent" />
+        <div className="pointer-events-none absolute inset-0 z-[5] rounded-3xl bg-gradient-to-t from-brand-dark/30 via-transparent to-brand-dark/20" />
       </div>
 
-      {/* Video Modal */}
       {isVideoPlaying && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/95"
@@ -364,10 +360,6 @@ export function Hero() {
           </div>
         </div>
       )}
-
-      {/* Gradient overlays for text readability */}
-      <div className="pointer-events-none absolute inset-0 z-[5] bg-gradient-to-r from-brand-dark/70 via-transparent to-transparent" />
-      <div className="pointer-events-none absolute inset-0 z-[5] bg-gradient-to-t from-brand-dark/30 via-transparent to-brand-dark/20" />
     </section>
   );
 }
