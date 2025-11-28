@@ -4,73 +4,83 @@ import { cn } from "@/lib/utils";
 
 export function Est() {
   return (
-    <div className="relative flex h-full w-full items-center justify-center bg-[#fafafa] overflow-hidden">
-      <div className="relative w-full max-w-7xl px-6 lg:px-8 flex flex-col justify-center h-full">
-        {/* Background "ABOUT US" Text */}
-        <div className="absolute top-10 -left-32 sm:top-20 sm:-left-24 lg:-left-16 select-none pointer-events-none z-0">
-          <span
-            className="font-heading text-[8rem] sm:text-[12rem] lg:text-[18rem] font-bold leading-none text-transparent opacity-[0.08] whitespace-nowrap"
-            style={{ WebkitTextStroke: "2px #24221B" }}
-          >
-            ABOUT US
-          </span>
-        </div>
+    <section className="relative w-full bg-[#fafafa] py-16 md:py-24 lg:py-32 overflow-hidden">
+      {/* Background Outline Text - Matching Services Style */}
+      <div className="absolute top-0 left-0 w-full select-none pointer-events-none opacity-100 z-0">
+        <h1
+          className="text-[15vw] font-bold leading-[1.5] text-transparent font-heading tracking-tighter text-left pl-[8vw]"
+          style={{
+            WebkitTextStroke: "3px rgba(36, 34, 27, 0.1)",
+            color: "transparent",
+          }}
+        >
+          ABOUT US
+        </h1>
+      </div>
 
-        {/* Main Content */}
-        <div className="relative z-10 mt-20 sm:mt-32 lg:mt-40 max-w-5xl">
-          <h2 className="font-heading text-3xl sm:text-4xl lg:text-6xl font-bold text-[#24221B] leading-[1.1] tracking-tight uppercase mb-8 sm:mb-12">
-            Since 2015, Upright Solutions <br className="hidden lg:block" />
-            has delivered IT excellence <br className="hidden lg:block" />
-            across industries
-          </h2>
+      <div className="container mx-auto px-4 md:px-8 relative z-10">
+        {/* Main Content - Overlapping lower portion of ABOUT US */}
+        <div className="relative pt-[12vw] sm:pt-[10vw] md:pt-[9vw] lg:pt-[8vw]">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-8 items-end">
+            {/* Left Column: Headline + Description */}
+            <div className="max-w-2xl space-y-6">
+              <h2 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-[#24221B] leading-[1.1] font-heading uppercase tracking-tight">
+                <span className="whitespace-nowrap">Since 2015, Upright Solutions</span>
+                <br />
+                <span className="whitespace-nowrap">has delivered IT excellence</span>
+                <br />
+                <span className="whitespace-nowrap">across industries</span>
+              </h2>
 
-          <p className="font-body text-lg sm:text-xl text-[#24221B]/80 leading-relaxed max-w-2xl">
-            In a world where technology is becoming increasingly complex, having
-            a partner who understands every step is essential. From systemp
-            integration to software development, we make sure no detail is
-            overlooked.
-          </p>
-        </div>
+              <p className="text-sm sm:text-base md:text-lg text-[#24221B]/70 font-body leading-relaxed max-w-lg">
+                In a world where technology is becoming increasingly complex,
+                having a partner who understands every step is essential. From
+                system integration to software development, we make sure no
+                detail is overlooked.
+              </p>
+            </div>
 
-        {/* Handwritten Note */}
-        <div className="absolute bottom-20 right-6 sm:bottom-32 sm:right-20 lg:right-32 transform rotate-[-5deg] z-10">
-          <div className="flex flex-col items-center group cursor-default">
-            {/* Arrow SVG */}
-            <svg
-              width="80"
-              height="60"
-              viewBox="0 0 100 80"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="text-[#0000a1] mb-2 transform rotate-12 scale-75 sm:scale-100 transition-transform group-hover:scale-110"
-            >
-              <path
-                d="M90 10 C 70 30, 40 40, 10 60"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                fill="none"
-                strokeLinecap="round"
-              />
-              <path
-                d="M25 55 L 10 60 L 15 45"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                fill="none"
-                strokeLinecap="round"
-              />
-            </svg>
-            <span
-              className="text-2xl sm:text-3xl text-[#0000a1] font-medium whitespace-nowrap"
-              style={{
-                fontFamily:
-                  '"Caveat", "Brush Script MT", "Comic Sans MS", cursive',
-              }}
-            >
-              Rooted in the Philippines
-            </span>
+            {/* Right Column: Handwritten Note (Visible on all screens) */}
+            <div className="flex justify-end items-end pb-4 pr-4 sm:pr-8 lg:pr-[5vw] mt-8 lg:mt-0">
+              <div className="flex flex-col items-center group cursor-default transform rotate-[-5deg]">
+                {/* Arrow SVG */}
+                <svg
+                  width="80"
+                  height="60"
+                  viewBox="0 0 100 80"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="text-[#0000a1] mb-2 transform rotate-12 scale-75 sm:scale-100 transition-transform group-hover:scale-110"
+                >
+                  <path
+                    d="M90 10 C 70 30, 40 40, 10 60"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    fill="none"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M25 55 L 10 60 L 15 45"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    fill="none"
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <span
+                  className="text-2xl sm:text-3xl text-[#0000a1] font-medium whitespace-nowrap"
+                  style={{
+                    fontFamily:
+                      '"Caveat", "Brush Script MT", "Comic Sans MS", cursive',
+                  }}
+                >
+                  Rooted in the Philippines
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
