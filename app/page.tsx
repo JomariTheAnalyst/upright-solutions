@@ -1,6 +1,11 @@
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { Hero, About } from "@/components/sections/home";
+import { Hero } from "@/components/sections/home/hero";
+import { Est } from "@/components/sections/home/est";
+import { Services } from "@/components/sections/home/services";
+
+
+import { ImagesScrollingAnimation } from "@/components/sections/home/industries-weserve";
 
 export default function Home() {
   return (
@@ -8,15 +13,9 @@ export default function Home() {
       <Header />
       <main className="flex-1">
         <Hero />
-        <About />
-        {/* Placeholder content to enable scrolling */}
-        <section className="min-h-screen bg-brand-light py-32">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <h2 className="font-heading text-4xl font-bold text-brand-dark">
-              More content coming soon...
-            </h2>
-          </div>
-        </section>
+        <Est />
+        <Services />
+        <ImagesScrollingAnimation />
       </main>
       <Footer />
     </div>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Sora, Outfit, EB_Garamond } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
@@ -19,6 +20,18 @@ const outfit = Outfit({
 const ebGaramond = EB_Garamond({
   subsets: ["latin"],
   variable: "--font-eb-garamond",
+  display: "swap",
+});
+
+const playfairDisplay = localFont({
+  src: "../public/fonts/Playfair_Display/PlayfairDisplay-ExtraBold.ttf",
+  variable: "--font-playfair",
+  display: "swap",
+});
+
+const roslindale = localFont({
+  src: "../public/fonts/RoslindaleDisplayCondensed-Bold.woff2",
+  variable: "--font-roslindale",
   display: "swap",
 });
 
@@ -45,7 +58,9 @@ export default function RootLayout({
           "min-h-screen bg-background font-body antialiased",
           sora.variable,
           outfit.variable,
-          ebGaramond.variable
+          ebGaramond.variable,
+          playfairDisplay.variable,
+          roslindale.variable
         )}
       >
         {children}

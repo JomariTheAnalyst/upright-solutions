@@ -1,2 +1,3 @@
-export { Hero } from "./hero";
-export { About } from "./about";
+export * from "./hero";
+export * from "./about";
+export * from "./industries-weserve";

@@ -29,11 +29,11 @@ const services = [
 
 export function Services() {
   return (
-    <section className="relative w-full bg-[#fafafa] py-16 md:py-24 lg:py-32 overflow-hidden">
+    <section className="relative w-full bg-[#f5f5f3] py-16 md:py-24 lg:py-32 overflow-hidden">
       {/* Background Outline Text - Enlarged and positioned for overlap */}
-      <div className="absolute top-0 left-0 w-full select-none pointer-events-none opacity-100 z-0">
+      <div className="absolute top-8 w-full select-none pointer-events-none opacity-100 z-0">
         <h1
-          className="text-[15vw] font-bold leading-[1.5] text-transparent font-heading tracking-tighter text-left pl-[8vw]"
+          className="text-[13vw]  font-bold leading-[1.5] text-transparent font-heading tracking-tighter text-left pl-[8vw]"
           style={{
             WebkitTextStroke: "3px rgba(36, 34, 27, 0.1)",
             color: "transparent",
@@ -55,7 +55,7 @@ export function Services() {
                   With you every step of the way
                 </h2>
 
-                <p className="text-sm sm:text-base md:text-lg text-[#24221B]/70 font-body leading-relaxed max-w-lg">
+                <p className="text-base sm:text-lg md:text-xl lg:text-[22px] text-justify text-[#000000]/100 font-body leading-relaxed">
                   We build more than just buildings — we build strong, lasting
                   partnerships. From planning to completion, our skilled teams,
                   in-house production, and specialized equipment keep your
@@ -107,20 +107,18 @@ export function Services() {
               )}
             >
               {/* Yellow Background Card - Appears/Shifts on Hover */}
-              <div 
+              <div
                 className={cn(
                   "absolute inset-0 bg-[#F2D04E] border-2 border-[#24221B] transition-transform duration-500 ease-out origin-center",
                   "scale-[0.98] rotate-0 opacity-0 group-hover:opacity-100",
-                  index % 2 === 0 
-                    ? "group-hover:rotate-3 group-hover:translate-x-2 group-hover:translate-y-2" 
+                  index % 2 === 0
+                    ? "group-hover:rotate-3 group-hover:translate-x-2 group-hover:translate-y-2"
                     : "group-hover:-rotate-3 group-hover:-translate-x-2 group-hover:translate-y-2"
-                )} 
+                )}
               />
 
               {/* Main Card */}
-              <div 
-                className="relative h-full bg-white border-2 border-[#24221B] transition-transform duration-500 ease-out group-hover:-translate-y-2"
-              >
+              <div className="relative h-full bg-white border-2 border-[#24221B] transition-transform duration-500 ease-out group-hover:-translate-y-2">
                 {/* Image Container - Full Width, No Margins */}
                 <div className="relative h-72 sm:h-80 md:h-96 w-full overflow-hidden border-b-2 border-[#24221B]">
                   <Image
@@ -141,8 +139,8 @@ export function Services() {
                   </p>
 
                   <div className="mt-auto flex justify-end">
-                    <ArrowRight 
-                      className="w-12 h-12 text-[#24221B] transform transition-transform duration-300 group-hover:translate-x-2" 
+                    <ArrowRight
+                      className="w-12 h-12 text-[#24221B] transform transition-transform duration-300 group-hover:translate-x-2"
                       strokeWidth={2.5}
                     />
                   </div>

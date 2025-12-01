@@ -4,13 +4,13 @@ import { cn } from "@/lib/utils";
 
 export function Est() {
   return (
-    <section className="relative w-full bg-[#fafafa] py-16 md:py-24 lg:py-32 overflow-hidden">
-      {/* Background Outline Text - Matching Services Style */}
-      <div className="absolute top-0 left-0 w-full select-none pointer-events-none opacity-100 z-0">
+    <section className="relative w-full min-h-screen bg-[#FFFFFF] flex items-center overflow-hidden">
+      {/* Background Outline Text - Responsive positioning */}
+      <div className="absolute top-24  w-full select-none pointer-events-none opacity-100 z-0 pt-4 md:pt-8 lg:pt-0">
         <h1
-          className="text-[15vw] font-bold leading-[1.5] text-transparent font-heading tracking-tighter text-left pl-[8vw]"
+          className="text-[12vw] md:text-[13vw] lg:text-[13vw] font-bold leading-[1] text-transparent font-heading tracking-tighter text-left pl-4 md:pl-6 lg:pl-[8vw]"
           style={{
-            WebkitTextStroke: "3px rgba(36, 34, 27, 0.1)",
+            WebkitTextStroke: "2px rgba(36, 34, 27, 0.15)",
             color: "transparent",
           }}
         >
@@ -18,21 +18,29 @@ export function Est() {
         </h1>
       </div>
 
-      <div className="container mx-auto px-4 md:px-8 relative z-10">
-        {/* Main Content - Overlapping lower portion of ABOUT US */}
-        <div className="relative pt-[12vw] sm:pt-[10vw] md:pt-[9vw] lg:pt-[8vw]">
-          <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-8 items-end">
+      <div className="container mx-auto px-4 md:px-8 relative z-10 w-full py-8">
+        {/* Main Content - Tight overlap on mobile/tablet, normal on desktop */}
+        <div className="relative pt-[8vw] sm:pt-[7vw] md:pt-[6vw] lg:pt-[10px]">
+          {/* Line 26 - Change grid ratio */}
+            <div className="grid grid-cols-1 lg:grid-cols-[1.8fr_0.2fr] gap-8 items-end">
+
             {/* Left Column: Headline + Description */}
-            <div className="max-w-2xl space-y-6">
-              <h2 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-[#24221B] leading-[1.1] font-heading uppercase tracking-tight">
-                <span className="whitespace-nowrap">Since 2015, Upright Solutions</span>
-                <br />
-                <span className="whitespace-nowrap">has delivered IT excellence</span>
-                <br />
-                <span className="whitespace-nowrap">across industries</span>
+            <div className="max-w-4xl mx-auto lg:mx-0 space-y-6 pl-0 lg:pl-32">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl font-bold text-[#24221B] leading-[0.95] font-heading uppercase tracking-tight">
+                <span className="whitespace-normal lg:whitespace-nowrap inline-block">
+                  Since 2015, Upright Solutions
+                </span>{" "}
+                <br className="hidden lg:block" />
+                <span className="whitespace-normal lg:whitespace-nowrap inline-block">
+                  has delivered IT excellence
+                </span>{" "}
+                <br className="hidden lg:block" />
+                <span className="whitespace-normal lg:whitespace-nowrap inline-block">
+                  across industries
+                </span>
               </h2>
 
-              <p className="text-sm sm:text-base md:text-lg text-[#24221B]/70 font-body leading-relaxed max-w-lg">
+              <p className="text-base sm:text-lg md:text-xl lg:text-[24px] text-[#000000]/100 font-body leading-relaxed max-w-4xl text-left">
                 In a world where technology is becoming increasingly complex,
                 having a partner who understands every step is essential. From
                 system integration to software development, we make sure no
