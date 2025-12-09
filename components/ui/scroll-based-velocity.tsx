@@ -100,9 +100,9 @@ export function VelocityScroll({
         className="w-full overflow-hidden whitespace-nowrap"
         ref={containerRef}
       >
-        <motion.div className={cn("inline-block", className)} style={{ x }}>
+        <motion.div className={cn("flex flex-nowrap", className)} style={{ x }}>
           {Array.from({ length: repetitions }).map((_, i) => (
-            <span key={i} ref={i === 0 ? textRef : null} className="inline-flex items-center">
+            <span key={i} ref={i === 0 ? textRef : null} className="flex-shrink-0 inline-flex items-center">
               {children}
               {imageSrc && (
                 <img 

@@ -29,7 +29,7 @@ const services = [
 
 export function Services() {
   return (
-    <section className="relative w-full bg-[#f5f5f3] py-16 md:py-24 lg:py-32 overflow-hidden">
+    <section className="relative w-full bg-[#ffffff] py-16 md:py-24 lg:py-32 overflow-hidden">
       {/* Background Outline Text - Enlarged and positioned for overlap */}
       <div className="absolute top-8 w-full select-none pointer-events-none opacity-100 z-0">
         <h1
@@ -118,7 +118,7 @@ export function Services() {
               />
 
               {/* Main Card */}
-              <div className="relative h-full bg-white border-2 border-[#24221B] transition-transform duration-500 ease-out group-hover:-translate-y-2">
+              <div className="relative h-full bg-[#f5f5f3] border-2 border-[#24221B] transition-transform duration-500 ease-out group-hover:-translate-y-2">
                 {/* Image Container - Full Width, No Margins */}
                 <div className="relative h-72 sm:h-80 md:h-96 w-full overflow-hidden border-b-2 border-[#24221B]">
                   <Image

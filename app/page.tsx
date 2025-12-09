@@ -3,9 +3,9 @@ import { Footer } from "@/components/layout/footer";
 import { Hero } from "@/components/sections/home/hero";
 import { Est } from "@/components/sections/home/est";
 import { Services } from "@/components/sections/home/services";
-
-
 import { ImagesScrollingAnimation } from "@/components/sections/home/industries-weserve";
+import { VisionStatement } from "@/components/sections/home/vision-statement";
+import { Projects } from "@/components/sections/home/projects";
 
 export default function Home() {
   return (
@@ -16,6 +16,8 @@ export default function Home() {
         <Est />
         <Services />
         <ImagesScrollingAnimation />
+        <VisionStatement />
+        <Projects />
       </main>
       <Footer />
     </div>
