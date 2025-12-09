@@ -24,7 +24,8 @@ export const VelocityText = () => {
   );
   const skewX = useSpring(skewXRaw, { mass: 3, stiffness: 400, damping: 50 });
 
-  const xRaw = useTransform(scrollYProgress, [0, 1], [0, -4000]);
+  // Stop when last word reaches center instead of sliding all the way out
+  const xRaw = useTransform(scrollYProgress, [0, 0.7], [0, -2000]);
   const x = useSpring(xRaw, { mass: 3, stiffness: 400, damping: 50 });
 
   return (

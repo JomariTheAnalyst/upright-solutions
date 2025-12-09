@@ -35,6 +35,12 @@ const roslindale = localFont({
   display: "swap",
 });
 
+const justSansOutline = localFont({
+  src: "../public/fonts/just-sans-outline.exbold.otf",
+  variable: "--font-just-sans-outline",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
@@ -60,7 +66,8 @@ export default function RootLayout({
           outfit.variable,
           ebGaramond.variable,
           playfairDisplay.variable,
-          roslindale.variable
+          roslindale.variable,
+          justSansOutline.variable
         )}
       >
         {children}

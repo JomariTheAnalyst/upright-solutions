@@ -13,17 +13,17 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 z-50 w-full px-8 py-6 transition-all duration-300">
+    <header className="fixed top-0 z-50 w-full px-6 py-6 transition-all duration-300 pointer-events-none">
       <div className="flex w-full items-start justify-between">
-        {/* Logo */}
-        <Link href="/" className="relative z-10 flex items-center">
-          <div className="rounded-2xl bg-[#E4DFD8]/90 backdrop-blur-md p-2 shadow-sm">
+        {/* Logo - matches hero section style */}
+        <Link href="/" className="relative z-10 flex items-center pointer-events-auto">
+          <div className="rounded-lg bg-white/95 p-3 shadow-md backdrop-blur-sm">
             <Image
-              src="/images/logo/uprightlogo-notext.png"
+              src="/images/logo/Upright Logo2.png"
               alt="Upright Solutions"
-              width={40}
+              width={140}
               height={40}
-              className="h-8 w-8 object-contain"
+              className="h-8 w-auto object-contain"
               priority
               quality={100}
             />
@@ -31,7 +31,7 @@ export function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden items-center gap-1 rounded-2xl bg-[#E4DFD8]/90 px-3 py-2 backdrop-blur-md lg:flex shadow-sm">
+        <div className="hidden items-center gap-1 rounded-2xl bg-[#E4DFD8]/90 px-3 py-2 backdrop-blur-md lg:flex shadow-sm pointer-events-auto">
           <nav className="flex items-center px-2">
             {siteConfig.mainNav.map((item) => (
               <Link
@@ -49,7 +49,7 @@ export function Header() {
         </div>
 
         {/* Mobile Menu Button */}
-        <div className="lg:hidden rounded-xl bg-[#E4DFD8]/90 p-2 backdrop-blur-md">
+        <div className="lg:hidden rounded-xl bg-[#E4DFD8]/90 p-2 backdrop-blur-md pointer-events-auto">
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="p-2 text-brand-dark transition-colors hover:text-brand-blue"
@@ -67,8 +67,8 @@ export function Header() {
       {/* Mobile Menu */}
       <div
         className={cn(
-          "fixed inset-0 z-40 bg-[#E4DFD8] transition-all duration-500 lg:hidden",
-          isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
+          "fixed inset-0 z-40 bg-[#E4DFD8] transition-all duration-500 lg:hidden pointer-events-auto",
+          isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
         )}
       >
         <Container className="flex h-full flex-col items-center justify-center gap-8 pt-20">

@@ -30,17 +30,18 @@ export const VisionStatement = () => {
   const xRaw = useTransform(scrollYProgress, [0, 0.8], ["100%", "-100%"]);
   const x = useSpring(xRaw, { mass: 3, stiffness: 400, damping: 50 });
 
+  // Light turning on (entering) and off (leaving) effect
   const backgroundColor = useTransform(
     scrollYProgress,
-    [0.85, 1],
-    ["#f2d04e", "#ffffff"]
+    [0, 0.1, 0.85, 1],
+    ["#ffffff", "#f2d04e", "#f2d04e", "#ffffff"]
   );
 
   return (
     <motion.section
       ref={targetRef}
       style={{ backgroundColor }}
-      className="relative h-[400vh] w-full"
+      className="relative h-[400vh] w-full transition-colors duration-700"
     >
 
       <div className="sticky top-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden px-4">
