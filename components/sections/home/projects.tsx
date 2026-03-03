@@ -40,7 +40,7 @@ const projects = [
 
 export function Projects() {
   return (
-    <section className="relative w-full bg-[#ffffff] py-16 md:py-24 lg:py-32 overflow-hidden">
+    <section className="relative w-full bg-transparent py-16 md:py-24 lg:py-32 overflow-hidden">
       {/* Background Outline Text */}
       <div className="absolute top-8 md:top-12 lg:top-16 left-20 w-full select-none pointer-events-none z-0">
         <h1

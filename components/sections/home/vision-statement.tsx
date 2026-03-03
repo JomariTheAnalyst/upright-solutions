@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, forwardRef } from "react";
 import {
   motion,
   useScroll,
@@ -8,10 +8,11 @@ import {
   useTransform,
   useSpring,
 } from "framer-motion";
-import { cn } from "@/lib/utils";
 
-export const VisionStatement = () => {
-  const targetRef = useRef<HTMLDivElement>(null);
+export const VisionStatement = forwardRef<HTMLDivElement>((_, forwardedRef) => {
+  const internalRef = useRef<HTMLDivElement>(null);
+  const targetRef =
+    (forwardedRef as React.RefObject<HTMLDivElement>) || internalRef;
 
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -30,21 +31,22 @@ export const VisionStatement = () => {
   const xRaw = useTransform(scrollYProgress, [0, 0.8], ["100%", "-100%"]);
   const x = useSpring(xRaw, { mass: 3, stiffness: 400, damping: 50 });
 
-  // Light turning on (entering) and off (leaving) effect
-  const backgroundColor = useTransform(
+  // Content fade in/out for smoother appearance
+  const contentOpacity = useTransform(
     scrollYProgress,
-    [0, 0.1, 0.85, 1],
-    ["#ffffff", "#f2d04e", "#f2d04e", "#ffffff"]
+    [0.02, 0.1, 0.8, 0.95],
+    [0.3, 1, 1, 0.3]
   );
 
   return (
-    <motion.section
+    <section
       ref={targetRef}
-      style={{ backgroundColor }}
-      className="relative h-[400vh] w-full transition-colors duration-700"
+      className="relative h-[400vh] w-full bg-transparent"
     >
-
-      <div className="sticky top-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden px-4">
+      <motion.div
+        className="sticky top-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden px-4"
+        style={{ opacity: contentOpacity }}
+      >
         {/* Main Heading with Velocity Effect */}
         <div className="relative z-10 flex flex-1 items-center justify-center w-full">
           <motion.h2
@@ -58,12 +60,15 @@ export const VisionStatement = () => {
         {/* Subheading */}
         <div className="relative z-10 mb-20 max-w-3xl text-center">
           <p className="font-medium text-black/100 text-lg md:text-2xl leading-relaxed">
-            We build digital experiences that matter. By combining strategy, design, and technology, 
-            we help brands connect with their audience in meaningful ways, creating a lasting impact 
-            in a rapidly evolving digital landscape.
+            We build digital experiences that matter. By combining strategy,
+            design, and technology, we help brands connect with their audience
+            in meaningful ways, creating a lasting impact in a rapidly evolving
+            digital landscape.
           </p>
         </div>
-      </div>
-    </motion.section>
+      </motion.div>
+    </section>
   );
-};
+});
+
+VisionStatement.displayName = "VisionStatement";
